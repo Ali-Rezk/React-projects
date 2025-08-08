@@ -5,7 +5,7 @@ import { mode } from "../context/mode.context";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogin, setIsLogin } = useContext(auth);
+  const { isLogin, setIsLogin, userData } = useContext(auth);
   const { theme, toggleTheme } = useContext(mode);
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function Navbar() {
           className={`${!isOpen && "hidden"} w-full md:block md:w-auto`}
           id="navbar-default"
         >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="items-center font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {isLogin ? (
               <>
                 <li>
@@ -68,6 +68,19 @@ export default function Navbar() {
                 </li>
                 <li onClick={logOut} className="text-purple cursor-pointer">
                   LogOut
+                </li>
+                <li>
+                  <Link
+                    className="flex items-center g-3 "
+                    to={`/profile/${userData?._id}`}
+                  >
+                    <img
+                      src={userData?.photo}
+                      alt=""
+                      className="size-9 rounded-circle"
+                    />
+                    <span>{userData?.name}</span>
+                  </Link>
                 </li>
               </>
             ) : (

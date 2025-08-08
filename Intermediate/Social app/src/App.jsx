@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostDetails from "./pages/PostDetails";
+import Profile from "./components/Profile";
 
 function App() {
   const routes = createBrowserRouter([
@@ -28,6 +29,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <PostDetails></PostDetails>
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/profile/:id",
+          element: (
+            <ProtectedRoute>
+              <Profile></Profile>
             </ProtectedRoute>
           ),
         },

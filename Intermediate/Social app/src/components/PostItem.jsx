@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import formateDate from "../lib/formateDate";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Comments from "./Comments";
+import CreateComment from "./CreateComment";
 
 export default function PostItem({ post }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation().pathname.startsWith("/posts");
+
+  const [isOpen, setIsOpen] = useState(location);
 
   const {
     body,
@@ -43,7 +46,12 @@ export default function PostItem({ post }) {
           <i className="fa-solid fa-share"></i>
         </div>
       </div>
-      {isOpen && <Comments id={_id}></Comments>}
+      {isOpen && (
+        <>
+          <CreateComment id={_id}></CreateComment>
+          <Comments id={_id}></Comments>
+        </>
+      )}
     </div>
   );
 }
