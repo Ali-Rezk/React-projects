@@ -15,7 +15,12 @@ export default function PostItem({ post }) {
   const location = useLocation().pathname.startsWith("/posts");
   const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: deletePost,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      if (userData?._id) {
+        queryClient.invalidateQueries({ queryKey: ["profile", userData._id] });
+      }
+    },
   });
   const [isOpen, setIsOpen] = useState(location);
 
