@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getUserProfile } from "../apis/profile.api";
+import Loading from "./Loading";
+import PostItem from "./PostItem";
 
 export default function Profile() {
   const { id } = useParams();
@@ -17,5 +19,11 @@ export default function Profile() {
 
   console.log(data);
 
-  return <div>Profile</div>;
+  return (
+    <div>
+      {data?.posts.map((post) => (
+        <PostItem key={post._id} post={post}></PostItem>
+      ))}
+    </div>
+  );
 }
