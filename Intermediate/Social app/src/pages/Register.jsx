@@ -5,6 +5,7 @@ import { RegisterSchema } from "../lib/register.scheme";
 import Feedback from "../components/Feedback";
 import { addUser } from "../apis/register.api";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Register() {
   const [error, setError] = useState("");
@@ -45,6 +46,10 @@ export default function Register() {
 
   return (
     <>
+    <Helmet>
+        <title>Register</title>
+        <meta name="description" content="Helmet application" />
+    </Helmet>
       <div className="mx-auto py-2 w-1/3">
         {error && <Feedback message={error}></Feedback>}
       </div>

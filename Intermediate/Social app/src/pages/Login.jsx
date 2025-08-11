@@ -6,6 +6,7 @@ import { LoginSchema } from "../lib/login.schceme";
 import Feedback from "../components/Feedback";
 import { loginFn } from "../apis/login.api";
 import { auth } from "../context/auth.context";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -45,6 +46,10 @@ export default function Login() {
 
   return (
     <>
+      <Helmet>
+        <title>Login</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <div className="mx-auto py-2 w-1/3">
         {error && <Feedback message={error}></Feedback>}
       </div>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getUserProfile } from "../apis/profile.api";
 import Loading from "./Loading";
 import PostItem from "./PostItem";
+import { Helmet } from "react-helmet";
 
 export default function Profile() {
   const { id } = useParams();
@@ -17,10 +18,12 @@ export default function Profile() {
 
   if (isLoading) return <Loading></Loading>;
 
-  console.log(data);
-
   return (
     <div>
+      <Helmet>
+        <title>Profile</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       {data?.posts.map((post) => (
         <PostItem key={post._id} post={post}></PostItem>
       ))}

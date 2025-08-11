@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { createPost } from "../apis/posts/createPost.api";
 import toast from "react-hot-toast";
 
@@ -13,6 +13,8 @@ export default function AddPost() {
     mutationFn: createPost,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
   });
+
+  const fileInputRef = useRef(null);
 
   function handleChange(e) {
     const file = e.target.files[0];
@@ -36,6 +38,11 @@ export default function AddPost() {
   function clr() {
     setImage("");
     setBody("");
+    setImageSrc("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }
 
   return (
@@ -54,6 +61,7 @@ export default function AddPost() {
         <div className="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
           {imgSrc && <img src={imgSrc} alt="" />}
           <input
+            ref={fileInputRef}
             onChange={handleChange}
             className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
             spellCheck="false"
