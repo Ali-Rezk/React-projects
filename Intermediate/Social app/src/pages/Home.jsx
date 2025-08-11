@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "../apis/posts/posts.api";
 import Loading from "../components/Loading";
 import PostItem from "../components/PostItem";
+import AddPost from "../components/AddPost";
 
 export default function Home() {
   const { isLoading, isError, error, data } = useQuery({
@@ -15,7 +16,12 @@ export default function Home() {
 
   console.log(data.posts);
 
-  return data.posts.map((post) => (
-    <PostItem key={post._id} post={post}></PostItem>
-  ));
+  return (
+    <div>
+      <AddPost></AddPost>
+      {data.posts.map((post) => (
+        <PostItem key={post._id} post={post}></PostItem>
+      ))}
+    </div>
+  );
 }
